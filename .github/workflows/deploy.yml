@@ -1,24 +1,54 @@
-# workflow 이름 GitHub Actions tab에 표시된다.
+
 name: Deploy MkDocs
 
-# 작업
 on:
   push:
     branches:
-      - main    # 배포를 트리거할 branch name
+      - main
+  workflow_dispatch:
 
-# GitHub Actions가 현재 repository에 Write 권한 부여(Actions에서 설정할 수도 있다.)
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
-# 수행할 작업 설정
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest      # 작업이 실행되는 OS
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4       # source code 설정
-      - uses: actions/setup-python@v5   # python 환경 설정(MkDocs 실행을 위해 필요)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-      - run: pip install mkdocs-material        # 필요한 Library 설치
-      - run: mkdocs gh-deploy --force           # HTML을 빌드하고 GitHub Pages에 배포
+          python-version: 3.x
+
+      - name: Install MkDocs Material
+        run: pip install mkdocs-material
+
+      - name: Build documentation
+        run: mkdocs build --strict
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
