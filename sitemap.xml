@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://akje12301.github.io/01_intro/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://akje12301.github.io/02_starting_github/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://akje12301.github.io/03_markdown/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://akje12301.github.io/05_install_mkdocs/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://akje12301.github.io/06_git_deploy/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+    <url>
+         <loc>https://akje12301.github.io/07_design/</loc>
+         <lastmod>2026-11-28</lastmod>
+    </url>
+</urlset>
